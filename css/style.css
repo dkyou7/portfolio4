@@ -1,0 +1,147 @@
+body{
+    background: #fafafa;
+}
+
+#header{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 999;
+    background: white;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+#header .inner{
+    width: 997px;
+    height: 77px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 첫번째 조각 */
+.right_icons{
+    width: 137px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon_insta_icon {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -53px -235px;
+	width: 22px;
+	height: 22px;
+}
+
+#header .inner .logo > a{
+    color: transparent;
+}
+
+#header .inner .logo div{
+    vertical-align: middle;
+}
+
+#header .inner .logo div:nth-child(2){
+    transform: translateY(2px);
+}
+
+#header .inner .logo .icon_insta_icon{
+    position: relative;
+    margin-right: 30px;
+}
+#header .inner .logo .icon_insta_icon:after{
+    content: '';
+    width: 1px;
+    height: 28px;
+    background: #000;
+    position: absolute;
+    right: -15px;
+    top: -4px;
+}
+
+/* 두번째 조각 */
+.icon_small_search {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -337px -246px;
+	width: 10px;
+    height: 10px;
+}
+#search-field{
+    width: 185px;
+    height: 28px;
+    background: #fafafa;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    padding: 3px 30px;
+    color: #999;
+    font-weight: 400;
+    text-align: left;
+    font-size: 14px;
+    outline: none;
+}
+
+#search-field::placeholder{
+    font-size: 0;
+}
+#search-field:focus::placeholder{
+    font-size: 14px;
+}
+
+#search-field:focus ~ .fake_field > span:nth-child(1){
+    transform: translate(-105px);
+}
+#search-field:focus ~ .fake_field > span:nth-child(2){
+    display: none;
+}
+
+#header .inner .search_box{
+    position: relative;
+}
+
+#header .inner .search_box .fake_field{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    color: grey;
+}
+
+#header .inner .search_box .fake_field:nth-child(2){
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+/* 세번째 조각 */
+.icon_insta_logo {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -94px -72px;
+	width: 103px;
+	height: 29px;
+}
+
+.icon_camera {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -271px -104px;
+	width: 24px;
+	height: 22px;
+}
+.icon_compass {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -130px -286px;
+	width: 23px;
+	height: 23px;
+}
+.icon_heart_outline {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -52px -261px;
+	width: 24px;
+	height: 22px;
+}
+.icon_mypage {
+    display: inline-block;
+	background: url('../imgs/background01.png') no-repeat -272px -182px;
+	width: 22px;
+	height: 24px;
+}
