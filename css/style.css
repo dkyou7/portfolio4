@@ -145,3 +145,173 @@ body{
 	width: 22px;
 	height: 24px;
 }
+
+
+/* 메인 */
+#main_container{
+    padding-top: 130px;
+    display: flex;
+    justify-content: center;
+}
+
+#main_container .inner{
+    width:935px;
+    height:500px;
+    /* background: blueviolet; */
+}
+
+.contents{
+    width:614px;
+    /* height: 500px; */
+    border:1px solid rgba(0, 0, 0, 0.09);
+    border-radius: 3px;
+    margin-bottom: 60px;
+    background: white;
+}
+
+.contents .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding : 10px 20px;
+}
+
+.contents .top .profile_img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.contents .top .profile_img img{
+    width: 100%;
+}
+.contents .top .user_container {
+    display: flex;
+}
+.icon_more {
+    background: url('../imgs/background01.png') no-repeat -301px -218px;
+    width: 15px;
+    height: 3px;
+}
+
+.m_text{
+    font-size: 14px;
+    font-weight: bold;
+}
+.s_text{
+    font-size: 12px;
+    padding-top: 2px;
+}
+
+.contents .img_section{
+    overflow: hidden;
+}
+
+.contents .img_section img{
+    width: 100%;
+}
+
+.contents .bottom_icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.contents .bottom_icons .left_icons {
+    display: flex;
+    cursor: pointer;
+}
+
+.contents .bottom_icons .right_icon {
+    cursor: pointer;
+}
+
+.contents .bottom_icons .left_icons > div {
+    margin-right: 10px;
+}
+
+.icon_bubble {
+    background: url('../imgs/background01.png') no-repeat -239px -202px;
+    width: 24px;
+    height: 24px;
+}
+
+.icon_share {
+    background: url('../imgs/background01.png') no-repeat -324px -52px;
+    width: 21px;
+    height: 24px;
+}
+
+.icon_bookmark {
+    background: url('../imgs/background01.png') no-repeat -237px -286px;
+    width: 19px;
+    height: 24px;
+}
+
+.contents .likes{
+    padding: 5px 20px;
+    color:#262626;
+}
+
+.icon_small_heart_outline {
+    background: url('../imgs/background01.png') no-repeat -323px -274px;
+    width: 12px;
+    height: 11px;
+}
+
+.contents .comment_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+}
+
+.contents .comment_container .comment{
+    display: flex;
+    font-size: 14px;
+}
+
+.contents .comment_container .comment .nick_name{
+    margin-right: 10px;
+}
+
+
+.contents .timer{
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #999;
+    border-bottom: 1px solid rgba(0,0,0,0.09);
+    padding: 10px 20px;
+}
+
+.contents .comment_field{
+    min-height: 56px;
+    padding: 0 20px;
+    position: relative;
+}
+
+.contents .comment_field input{
+    width: 100%;
+    height: 56px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.contents .comment_field input:focus ~ .upload_btn{
+    pointer-events: initial;
+    opacity: 1;
+}
+
+.contents .comment_field .upload_btn{
+    color: #3897f0;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0.6;
+}
