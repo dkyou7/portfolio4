@@ -18,8 +18,14 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all 0.5s;
 }
-
+#header.on{
+    position: fixed;
+}
+#header.on .inner{
+    height: 60px;
+}
 /* 첫번째 조각 */
 .right_icons{
     width: 137px;
@@ -44,6 +50,7 @@ body{
 
 #header .inner .logo div:nth-child(2){
     transform: translateY(2px);
+    transition: all .5s;
 }
 
 #header .inner .logo .icon_insta_icon{
@@ -58,6 +65,14 @@ body{
     position: absolute;
     right: -15px;
     top: -4px;
+    transition: all .5s;
+}
+
+#header.on .inner .logo .icon_insta_icon:after{
+    opacity: 0;
+}
+#header.on .inner .logo .icon_insta_logo{
+    opacity: 0;
 }
 
 /* 두번째 조각 */
@@ -262,6 +277,10 @@ body{
     height: 11px;
 }
 
+.heart_btn.on .icon_heart_outline{
+    background: url('../imgs/background01.png') no-repeat -26px -261px;
+}
+
 .contents .comment_container{
     display: flex;
     justify-content: space-between;
@@ -379,6 +398,11 @@ body{
     color: #262626;
 }
 
+.side_box.on{
+    position: fixed;
+    top:100px;
+}
+
 .thumb_user{
     display: flex;
     align-items: center;
@@ -433,6 +457,9 @@ body{
 @media screen and (max-width:1000px){
     #header .inner{
         width: 97.5%;
+    }
+    #header.on{
+        position: fixed;
     }
     #main_container{
         padding-top: 220px;
