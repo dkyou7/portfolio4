@@ -463,8 +463,3 @@ function addMorePostAjax(data){
 }
 ```
 
-
-
-### MTV
-
-<img src="Readme_img\MTV.png" alt="1572166118358" style="zoom:67%;" />
