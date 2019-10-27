@@ -7,7 +7,12 @@ function calcFunc(){
     side_box.style.left = cal+'px';
 }
 function scrollFunc(){
-    console.log(pageYOffset);
+    let scrollHeight = pageYOffset+window.innerHeight;
+    let documentHeight = document.body.scrollHeight;
+
+    console.log('scrollHeight : ' + scrollHeight);
+    console.log('documentHeight : ' + documentHeight);
+    
     if(pageYOffset>=10){
         header.classList.add('on');
         if (side_box){
@@ -21,6 +26,37 @@ function scrollFunc(){
             side_box.removeAttribute('style');
         }
     }
+
+    if (scrollHeight >= documentHeight){
+        let page = document.querySelector('#page').value;
+        if (page > 5) {
+            return;
+        }
+        document.querySelector('#page').value = parseInt(page)+1;
+
+        callMorePostAjax(page);
+        
+    }
+}
+function callMorePostAjax(page){
+    if (page > 5) {
+        return;
+    }
+    $.ajax({
+        type:'get',
+        url:'./post.html',
+        data:{
+            'page':page
+        },
+        dataType:'html',
+        success: addMorePostAjax,
+        error: function (request, status, error) {
+            alert("문제 발생!");
+        }
+    })
+}
+function addMorePostAjax(data){
+    delegation.insertAdjacentHTML('beforeend',data);
 }
 function delegationFunc(e){
     console.log(e.target);
@@ -69,6 +105,9 @@ function delegationFunc(e){
             success: function (res) {
                 let bookmark = document.querySelector('#bookmark-count-' + pk);
                 bookmark.innerHTML = '북마크' + res.bookmark_count + '개';
+            },
+            error: function (request, status, error) {
+                alert("문제 발생!");
             }
         })
     }else if(elem.matches('[data-name="comment"]')){
@@ -97,6 +136,44 @@ function delegationFunc(e){
         });
         // 글 작성 시 초기화
         document.querySelector('#add-commment-post-37 > input[type=text]').value='';
+    }else if(elem.matches('[data-name="comment_delete"]')){
+        $.ajax({
+            type:'get',
+            url:'data/delete.json',
+            data:{
+                'pk':37
+            },
+            dataType:'json',
+            success:function(res){
+                if(res.status){
+                    let comt = document.querySelector('.comment-detail');
+                    comt.remove();
+                }
+            },
+            error: function (request, status, error) {
+                alert("문제 발생!");
+            }
+        })
+    }else if(elem.matches('[data-name="follow"]')){
+        $.ajax({
+            type:'get',
+            url:'data/follow.json',
+            data:{
+                'pk':37
+            },
+            dataType:'json',
+            success:function(res){
+                if(res.status){
+                    alert('구독하시겠습니까?');
+                    document.querySelector('input.follow').value='팔로잉';
+                }else{
+                    document.querySelector('input.follow').value = '팔로우';
+                }
+            },
+            error: function (request, status, error) {
+                alert("문제 발생!");
+            }
+        })
     }
     
     elem.classList.toggle('on');
