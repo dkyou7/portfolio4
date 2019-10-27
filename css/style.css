@@ -265,6 +265,11 @@ body{
     width: 19px;
     height: 24px;
 }
+.icon_bookmark.on {
+	background: url('../imgs/background01.png') no-repeat -159px -286px;
+	width: 19px;
+	height: 24px;
+}
 
 .contents .likes{
     padding: 5px 20px;
@@ -277,7 +282,7 @@ body{
     height: 11px;
 }
 
-.heart_btn.on .icon_heart_outline{
+.icon_heart_outline.on{
     background: url('../imgs/background01.png') no-repeat -26px -261px;
 }
 
@@ -290,7 +295,11 @@ body{
 
 .contents .comment_container .comment{
     display: flex;
+    flex-direction: column;
     font-size: 14px;
+}
+.contents .comment_container .comment-detail{
+    display: flex;
 }
 
 .contents .comment_container .comment .nick_name{
@@ -332,7 +341,7 @@ body{
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    pointer-events: none;
+    /* pointer-events: none; */
     opacity: 0.6;
 }
 
