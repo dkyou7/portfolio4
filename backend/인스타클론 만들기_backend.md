@@ -44,3 +44,80 @@ $ source django-venv/Scripts/activate
 $  deactivate
 ```
 
+#### github
+
+- 다시 이전 커밋으로 돌리고 싶을 때 사용하는 명령어
+
+  ```bash
+  git reset --hard
+  ```
+
+#### accounts: create,settings
+
+```bash	
+django-admin startapp accounts 	# 뭔가를 만드는 행위. accounts 폴더가 생겼다!
+```
+
+- settings.py 다루기
+
+```python
+# ['*'] or []
+ALLOWED_HOSTS = ['*']
+```
+
+```python
+# folder settings
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'accounts',		# <-
+]
+```
+
+```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # html settings
+            os.path.join(BASE_DIR,'config','templates'),	# <-
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
+```python
+# language settings
+LANGUAGE_CODE = 'ko-kr'
+
+TIME_ZONE = 'Asia/Seoul'
+```
+
+```python
+# js , css , media files , login redirect settings
+STATIC_URL = '/static/'
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR,'config','static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+LOGIN_REDIRECT_URL = '/'
+```
+
