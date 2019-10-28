@@ -84,7 +84,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             # html settings
-            os.path.join(BASE_DIR,'config','templates'),	# <-
+            os.path.join(BASE_DIR,'config','templates'),	# <- 폴더 생성해주자.
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -120,6 +120,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 LOGIN_REDIRECT_URL = '/'
 ```
+
+- 최종 구조
+
+![1572277932454](../Readme_img/backend_tree.PNG)
 
 #### accounts: model
 
