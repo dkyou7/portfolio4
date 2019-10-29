@@ -129,10 +129,10 @@ LOGIN_REDIRECT_URL = '/'
 
 ```bash
 # 이미지 처리를 위한 pip download
-$ pip install pillow
-$ pip install pilkit
-$ pip install psycopg2-binary
-$ pip install django-imagekit
+pip install pillow
+pip install pilkit
+pip install psycopg2-binary
+pip install django-imagekit
 $ service postgresql start	# postgresql 사용하고 싶다면?
 ```
 
@@ -185,4 +185,29 @@ $ service postgresql start	# postgresql 사용하고 싶다면?
   $ python manage.py migrate
   ```
 
-  
+
+#### accounts:admin
+
+- accounts - admin.py
+
+```python
+from django.contrib import admin
+from .models import Profile
+
+# Register your models here.
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['id','nickname','user']
+    list_display_links = ['nickname','user',]
+    search_fields = ['nickname']
+```
+
+```python
+python manage.py runserver # 실행하기
+```
+
+```python
+python manage.py createsuperuser	# 슈퍼유저 생성하기
+```
+
