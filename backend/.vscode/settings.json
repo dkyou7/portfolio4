@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "django-venv\\Scripts\\python.exe"
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
 }

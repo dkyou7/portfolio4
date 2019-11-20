@@ -1,6 +1,6 @@
-# 인스타클론 만들기
+[TOC]
 
-
+### 인스타클론 만들기
 
 #### MTV
 
@@ -16,15 +16,11 @@ $ pyenv global 3.7.2
 $ pyenv rehash
 $ python -V
 # === version 확인 후, 가상환경 원하는 폴더에서 ===
-$ python -m venv django-venv
-$ source django-venv/Scripts/activate
+$ virtualenv venv
+$ source venv/Script/activate
 # === 그러면, 이렇게 될 것 ===
-(django-venv) ~
-
-# 그 후 npm install을 통해 이전에 깔아두었던 npm service 를 설치한다.
-# npm run serve 를 통해 서버를 실행시킨다.
+(venv) ~
 $ pip3 list 
-# 를 외치면 최소한의 npm이 나온다.
 $ pip3 install django==2.1
 # 장고의 맞춤 버전을 설치한다.
 $ django-admin startproject config .
@@ -33,7 +29,7 @@ $ django-admin startproject config .
 # settings.py 변경
 $ LANGUAGE_CODE = 'ko-kr'
 $ TIME_ZONE = 'Asia/Seoul'
-
+# db 생성
 $ python manage.py migrate
 $ python manage.py runserver
 
@@ -45,6 +41,8 @@ $  deactivate
 ```
 
 #### github
+
+- venv 를 빼고 올리는게 좋다.
 
 - 다시 이전 커밋으로 돌리고 싶을 때 사용하는 명령어
 
@@ -181,8 +179,8 @@ $ service postgresql start	# postgresql 사용하고 싶다면?
 - 다 처리 후
 
   ```bash
-  $ python manage.py makemigrations accounts
-  $ python manage.py migrate
+  python manage.py makemigrations accounts
+  python manage.py migrate
   ```
 
 
@@ -210,4 +208,163 @@ python manage.py runserver # 실행하기
 ```python
 python manage.py createsuperuser	# 슈퍼유저 생성하기
 ```
+
+#### static: 프론트엔드 예제파일 업로드
+
+- static 폴더 밑에 css, js, imgs 업로드 해준다
+
+#### templates:layout
+
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/detail-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new_post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'js/main.js' %}">
+</head>
+<body>
+    <section id="container">
+        <header id="header">
+            <section id="h_inner">
+                <h1 class="logo">
+                    <div class="sprite_insta_icon"></div>
+                    <div>
+                        <div class="sprite_write_logo"></div>
+                    </div>
+                </h1>
+                <div class="search_field">
+                    <input type="text" placeholder="검색" tabindex="0">
+                    <div class="fake_field">
+                        <span class="sprite_small_search_icon"></span>
+                        <span>검색</span>
+                    </div>
+                </div>
+                <div class="right_icons">
+                    <div class="sprite_camera_icon"><a href="#"></a></div>
+                    <div class="sprite_compass_icon"><a href="#"></a></div>
+                    <div class="sprite_heart_icon_outline"><a href="#"></a></div>
+                    <div class="sprite_user_icon_outline"><a href="#"></a></div>
+                </div>
+            </section>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+    </section>
+</body>
+</html>
+```
+
+#### 회원가입|로그인|로그아웃 :: views
+
+```bash
+pip3 install django-allauth
+```
+
+- settings.py 수정
+
+  ```python
+  # folder settings
+  INSTALLED_APPS = [
+      'django.contrib.admin',
+      'django.contrib.auth',
+      'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
+  	# 이부분 수정
+      'django.contrib.sites',
+      'allauth',
+      'allauth.account',
+  
+      'accounts',
+  ]
+  ```
+
+- accounts - urls.py 수정
+
+  ```python
+  from django.urls import path
+  from .views import *
+  
+  app_name = 'accounts'
+  
+  url_patterns = [
+      path('signup/',signup,name='signup'),
+      path('login/',login_check,name='login'),
+      path('logout/',logout,name='logout'),
+  ]
+  ```
+
+### 회원가입|로그인|로그아웃 :: forms
+
+- accounts - views.py 작성
+
+  ```python
+  from django.contrib.auth import authenticate, login
+  from django.shortcuts import redirect, render
+  from django.contrib.auth import logout as django_logout
+  from .forms import SignupForm, LoginForm
+  
+  def signup(request):
+      if request.method == 'POST':
+          form = SignupForm(request.POST, request.FILES)
+          if form.is_valid():
+              user = form.save() # 저장하기
+              return redirect('accounts:login')
+          else:
+              form = SignupForm()
+          return render(request, 'accounts/signup.html', {
+              'form':form,
+          })
+          
+  def login_check(request):
+      if request.method == "POST":
+          form = LoginForm(request.POST)
+          name = request.POST.get("username")
+          pwd = request.POST.get('password')
+          
+          user = authentiacate(username=name,password=pwd)
+          
+          if user is not None:
+              login(request,user)
+              return redirect("/")
+          else:
+              return render(request,'accounts/login_fail_info.html')
+      else:
+          form = LoginForm()
+          return render(request,'accounts/login.html',{
+              "form":form
+          })
+  
+  def logout(request):
+      django_logout(request)
+      return redirect("/")
+              
+  ```
+
+- accounts - forms.py 작성
+
+  ```python
+  from django import forms
+  from django.contrib.auth.forms import UserCreationForm
+  
+  class LoginForm(forms.ModelForm):
+      
+  class SignupForm(UserCreationForm):
+  ```
+
+  
 

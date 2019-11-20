@@ -20,7 +20,7 @@ class Profile(models.Model):
                                     processors=[ResizeToFill(150,150)],
                                     format="JPEG",
                                     options={'quality:90'},
-                                    blank=True
+                                    blank=True,
                                     )
     about = models.CharField(max_length=300, blank=True)
     GENDER_C = (
